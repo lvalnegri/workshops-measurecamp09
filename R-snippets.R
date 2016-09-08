@@ -2,10 +2,11 @@
 #   - Leaflet-providers preview: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 #   - Color Bewer Palettes: http://colorbrewer2.org/
 
-# QUICK MAP OF LONDON SANTANDER CYCLES
-lapply(c('data.table', 'jsonlite', 'leaflet'), require, character.only = TRUE)
+lapply(c('data.table', 'DT', 'jsonlite', 'leaflet'), require, character.only = TRUE)
+
+# EX 1, simple location maps using TFL Santander Cycle hire schema datapoints
 stations <- data.table(fromJSON(txt = 'https://api.tfl.gov.uk/bikepoint'), key = 'id')
-m <- stations %>% 
+stations %>% 
     leaflet() %>% 
     addTiles(
         'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', 
@@ -15,15 +16,13 @@ m <- stations %>%
     addCircleMarkers(stroke = FALSE, radius = 4, color = '#ffa500', weight = 3, fillOpacity = 0.8, popup = ~commonName) %>%
     addLegend('bottomright', colors = '#ffa500', labels = 'Station (click on any dot for more info)', title = 'LONDON SANTANDER CYCLES HIRE')
 
-m
-
 ##############################################################################################################
 
 # MAP OF LONDON SANTANDER CYCLES PLUS STATS 
 # Leaflet-providers preview: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 
-lapply(c('data.table', 'DT', 'leaflet'), require, character.only = TRUE)
-stations <- data.table(dbGetQuery(db_conn, 'SELECT * FROM stations WHERE is_active') )
+stations <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/londonCycleHire-stations.csv')
+stations[, started := as.Date(as.character(started), '%Y%m%d') ]
 datatable(stations,
    rownames = FALSE,
    class = 'display',
@@ -38,8 +37,20 @@ datatable(stations,
 )
 stations %>% leaflet() %>% 
     addProviderTiles("CartoDB.Positron") %>%
-    setView(lng = mean(stations$X_lon), lat = mean(stations$Y_lat), zoom = 12) %>%
-    addCircleMarkers(~X_lon, ~Y_lat, stroke = FALSE, radius = stations[, hires_started]/10000, fillOpacity = 0.6, popup = ~address)
+    setView(lng = mean(stations$X_lon), lat = mean(stations$Y_lat), zoom = 13) %>%
+    addCircleMarkers(~X_lon, ~Y_lat, 
+                     radius = stations[, hires]/10000, 
+                     stroke = TRUE, 
+                     weight = 1,
+                     fillOpacity = 0.6, 
+                     popup = ~paste(
+                         paste('<b>', address, '</b><br />'), 
+                         postcode, place, area, '',
+                         paste('Total docks:', docks),
+                         paste('Started:', format(started, format = '%d %b %Y')),
+                         sep = '<br />'
+                     )
+    )
 
 ##############################################################################################################
 

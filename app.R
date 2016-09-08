@@ -1,3 +1,5 @@
+# need a *pull* from github datasets repository
+
 lapply(c('data.table', 'ggplot2', 'shiny'), require, character.only = TRUE)
 
 results <- fread('~/datasets/EU-ref.csv')
