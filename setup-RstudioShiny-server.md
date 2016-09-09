@@ -6,13 +6,13 @@ date: "10/09/2016"
 
 ## Introduction 
 
-*R* is one of the most popular programming language in the world, it's free to use, it has a vast, vibrant and supporting community, but its environment is quite simple and dry, even if powerful, and its learning curve is quite steep. Moreover, there is no unique interface shared among different OS; actually, on Linux there is only the command line.
+[*R*](http://www.r-project.org/) is one of the most popular programming language in the world, it's free to use, it has a vast, vibrant and supporting community, but its environment is quite simple and dry, even if powerful, and its learning curve is quite steep. Moreover, there is no unique interface shared among different OS; actually, on Linux there is only the command line.
 
-Here comes *RStudio*, as the nowadays most popular IDE for *R*, that offers great productivity enhancements, and a unique GUI for Linux, Windows and Mac. 
+Here comes [*RStudio*](http://www.rstudio.com/), as the nowadays most popular IDE for *R*, that offers great productivity enhancements, and a unique GUI for Linux, Windows and Mac. 
 
-*Shiny* and *RMarkdown* are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
+[*Shiny*](http://shiny.rstudio.com/gallery/) and [*RMarkdown*](http://rmarkdown.rstudio.com/gallery.html) are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
 
-Finally, *RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
+Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
 
 This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial is $300 for 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
 
@@ -167,9 +167,11 @@ lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shin
 
 ### Connect RStudio with Git
 
-*GitHub* is an online repository hosting service based on the version control system *Git*, which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
+[*GitHub*](https://github.com) is an online repository hosting service based on the version control system [*Git*](https://git-scm.com/), which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
 
-Let's download the code and datasets that I prepared for you!
+## Use the system
+
+To this purpose, let's first download the code and datasets that I prepared for you!
 
  - Open the Rstudio Server
  - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in *Git executable*
@@ -178,4 +180,5 @@ Let's download the code and datasets that I prepared for you!
  - From the same menu select again **New project** -> **Version control** -> **Git**. 
  - In Repository URL enter now the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
  - Now from **File** -> **Open** choose **packages.R**
-
+ 
+__*Happy coding*__
