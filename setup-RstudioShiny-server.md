@@ -165,7 +165,7 @@ For the purpose of this short demo, though, I advise you to only run the followi
 lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
 ```
 
-### Connect RStudio with Git
+### Connect RStudio with Git and GitHub
 
 [*GitHub*](https://github.com) is an online repository hosting service based on the version control system [*Git*](https://git-scm.com/), which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
 
