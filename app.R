@@ -1,4 +1,4 @@
-# to copy to the shiny directory run in terminal: sudo cp -R /home/<user>/presentations-measurecamp09 /srv/shiny-server/
+# to copy to the shiny directory run in terminal: sudo cp -R /home/<user>/presentations-measurecamp09/app.R /srv/shiny-server/<app-path>/
 lapply(c('data.table', 'DT', 'leaflet', 'shiny', 'shinythemes'), require, character.only = TRUE)
 
 stations <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/londonCycleHire-stations.csv')
