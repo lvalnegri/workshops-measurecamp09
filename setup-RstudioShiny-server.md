@@ -21,7 +21,7 @@ This short doc explains the essential for setting up both *RStudio Server* and *
 
 ### Create a GCE Virtual Machine
 
- - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*.
+ - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*. You're not going to be charged, though, unless you explicitly agree to continue at the end of the trial.
  - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
  - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
  - Click the *Create instance button*
