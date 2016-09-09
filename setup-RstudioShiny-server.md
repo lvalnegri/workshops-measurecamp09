@@ -150,22 +150,27 @@ q()
 exit
 ```
 
-The single installation line could be replaced by the following in case of multiple installations:
+The single installation line could be replaced by the following snippet in case of multiple installations:
+
+```
 dep.pkg <- c(...) # list of packages
 pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
 if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
+```
 
-For the purpose of this demo, I advise to only run the following code:
-
+For the purpose of this short demo, though, I advise you to only run the following single line of code:
 ```
 lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
 ```
 
-### Connect RStudio with Git: Tools -> Global Options -> Git/SVN
+### Connect RStudio with Git
 
-GitHub is an online version control, which has also become one of the most to share and backup code. *RStudio* can link to *Git* and features some nice additional commands to exploit the power of GitHub. Let's download the code and datasets that I prepared for you.
+*GitHub* is an online repository hosting service based on the version control system *Git*, which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
+
+Let's download the code and datasets that I prepared for you!
 
  - Open the Rstudio Server
+ - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in *Git executable*
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
  - In *Repository URL* enter the path of the my repository containing some datasets we will use with the scripts **https://github.com/lvalnegri/datasets** and then *Create*. 
  - From the same menu select again **New project** -> **Version control** -> **Git**. 
