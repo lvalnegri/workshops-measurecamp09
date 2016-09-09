@@ -131,7 +131,10 @@ At this point your newly built Ubuntu machine should have a complete working Shi
 
 By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port **3838**. This means that any Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
 
-To modify these and other default settings, the configuration file for Shiny Server is found at */etc/shiny-server/shiny-server.conf*. 
+To modify these and other default settings, the configuration file for Shiny Server is found at 
+
+`/etc/shiny-server/shiny-server.conf`
+
 Other steps that should be surely taken are:
  - Adding https
  - Adding authentication
@@ -139,9 +142,9 @@ Other steps that should be surely taken are:
 
 ### Install Packages
 
-The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for *devtools, but I thought useful to list some of the dependencies needed for the most used packages.
+The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for the developers' package *devtools*, but the following list some of the dependencies needed for the most used packages.
 
- - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev & sudo apt-get install libssl-dev
+ - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
  - XML: sudo apt-get install libxml2-dev
  - rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
  - RMySQL: sudo apt-get install libmysqlclient-dev
@@ -160,7 +163,7 @@ q()
 exit
 ```
 
-The single installation line could be replaced by the following snippet in case of multiple installations:
+The single installation line could be replaced by the following snippet in case of multiple packages to install:
 
 ```
 dep.pkg <- c(...) # list of packages
@@ -175,14 +178,16 @@ lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shin
 
 ### Connect RStudio with Git and GitHub
 
-[*GitHub*](https://github.com) is an online repository hosting service based on the version control system [*Git*](https://git-scm.com/), which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
+[*GitHub*](https://github.com) is an online repository hosting service based on the version control system [*Git*](https://git-scm.com/), which has also become one of the most popular website where developers and researchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
+
+ - Open the Rstudio Server browser window
+ - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in the *Git executable* textbox.
+
 
 ## Try the system
 
 To this purpose, let's first download the code and datasets that I prepared for you!
 
- - Open the Rstudio Server browser window
- - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in the *Git executable* textbox
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
  - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
  - Now from **File** -> **Open** choose **packages.R**
