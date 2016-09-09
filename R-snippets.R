@@ -2,7 +2,12 @@
 #   - Leaflet-providers preview: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 #   - Color Bewer Palettes: http://colorbrewer2.org/
 
-# lapply(c('data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet'), install.packages)
+# Quick way to install all packages needed for the demo (R code)
+dep.pkg <- c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes')
+pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
+if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
+
+# Load the packages
 lapply(c('data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet'), require, character.only = TRUE)
 
 ##############################################################################################################

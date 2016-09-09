@@ -22,7 +22,7 @@ server <- function(input, output) {
                scroller = TRUE,
                deferRender = TRUE,
                searchHighlight = TRUE,
-               fixedColumns = list(leftColumns = 4),
+               fixedColumns = list(leftColumns = 1),
                columnDefs = list( list(targets = 1:3, visible = FALSE) ),
                dom = 'frtip'
             )
