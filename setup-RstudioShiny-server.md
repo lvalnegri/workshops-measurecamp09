@@ -36,18 +36,14 @@ This short doc explains the essential for setting up both *RStudio Server* and *
     
     - Enter the name **rstudio-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:8787**
     - Enter the name **shiny-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:3838**
+
+- In that same page you can find the *External IP* you'll want to enter later in the browser to connect to your servers.
     
 ### Working with a Virtual Machine
     
 The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
-
-We can't go through n both cases, it's useful and safer to commit some time to a few preliminary operations to secure the VM from potential hackers:
-
- - Create alternative user with public key + password, so no direct su power
- - Change SSH port & Disable SSH root access
- - Install a firewall (*fail2ban*)
- - Install an antivirus (ClamAV) 
+For the limited purpose of this demo, we are going to use the Google SSH browser that you can open clicking the **SSH** button on the far right of the instance line.
 
 ## Installing the analytics software
 
