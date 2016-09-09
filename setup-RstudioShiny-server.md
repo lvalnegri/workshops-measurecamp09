@@ -12,27 +12,29 @@ Here comes [*RStudio*](http://www.rstudio.com/), as the nowadays most popular ID
 
 [*Shiny*](http://shiny.rstudio.com/gallery/) and [*RMarkdown*](http://rmarkdown.rstudio.com/gallery.html) are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
 
-Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
+Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to easily share Shiny *apps* and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
 
-This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial is $300 for 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
+This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
 
 
 ## Setting up the data-analytics framework
 
 ### Create a GCE Virtual Machine
 
-- Go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. Enter the minimum needed (names, email, date of birth), then click *Create*. Click *Continue to Google Developers Console*. Click on the *Yes* radio buttons to agree with T&C, then click *Agree and continue*. Fill the information about the billing method and then Click *Start your free trial*.
-- Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT*. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
-- Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
-- Click the *Create instance button*
-    - Name your future VM correspondingly
-- Choose one of the **europe-west1** zone
-- Under *Machine type* choose *Customise*, and then **8 Cores + 8GB memory**. It is currently ~$199monthly, but you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
-- In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
-- In the Firewall section, select **Allow HTTP traffic**.
-- Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
-- Now, click on the machine name's link, near the green tick, to open the configuration page. 
-- Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
+ - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free* (it's possible you are first asked to enter Google Mail credential, though). Enter the minimum needed (names, email, date of birth), then click *Create*. Click *Continue to Google Developers Console*. Click on the *Yes* radio buttons to agree with T&C, then click *Agree and continue*. Fill the information about the billing method, and then click *Start your free trial*.
+ - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
+ - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
+ - Click the *Create instance button*
+
+   - Name your future VM correspondingly
+   - Choose one of the **europe-west1** zone
+   - Under *Machine type* choose *Customise*, and then **8 Cores + 8GB memory**. It is currently ~$199monthly, but you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
+   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
+   - In the Firewall section, select **Allow HTTP traffic**.
+   - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
+
+ - Now, click on the machine name's link, near the green tick, to open the configuration page. 
+ - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
     
     - Enter the name **rstudio-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:8787**
     - Enter the name **shiny-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:3838**
