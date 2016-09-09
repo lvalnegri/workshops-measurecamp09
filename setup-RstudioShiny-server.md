@@ -28,10 +28,12 @@ This short doc explains the essential for setting up both *RStudio Server* and *
 
    - Name your future VM correspondingly
    - Choose one of the **europe-west1** zone
-   - Under *Machine type* choose *Customise*, and then **8 Cores + 8GB memory**. It is currently ~$199monthly, but you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
+   - Under *Machine type* choose *Customise*, and then **4 Cores + 8GB memory**. 
    - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
    - In the Firewall section, select **Allow HTTP traffic**.
    - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
+ 
+   The above configuration should cost ~$113monthly, but even if it weren't free, you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
 
  - Now, click on the machine name's link, near the green tick, to open the configuration page. 
  - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
