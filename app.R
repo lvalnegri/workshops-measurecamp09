@@ -1,48 +1,49 @@
-# need a *pull* from github datasets repository
+# to copy to the shiny directory run in terminal: sudo cp -R /home/<user>/presentations-measurecamp09 /srv/shiny-server/
+lapply(c('data.table', 'DT', 'leaflet', 'shiny', 'shinythemes'), require, character.only = TRUE)
 
-lapply(c('data.table', 'ggplot2', 'shiny'), require, character.only = TRUE)
-
-results <- fread('~/datasets/EU-ref.csv')
-results[, turnout := Cast / Electorate]
-results[, pctLeave := Leave / Valid]
-
-geo_locations <- fread('~/datasets/geo_locations_uk.csv')
-geo_lookups <- fread('~/datasets/geo_lookups_uk.csv')
-results <- merge(results, unique(geo_lookups[, .(LAD_id, RGN_id)]), by = 'LAD_id')
-results <- merge(results, geo_locations[type == 'LAD', .(id, name)], by.x = 'LAD_id', by.y = 'id')
-results[, name := as.factor(name)]
-setnames(results, 'name', 'district')
-results <- merge(results, geo_locations[type == 'RGN', .(id, name)], by.x = 'RGN_id', by.y = 'id')
-results[, name := as.factor(name)]
-setnames(results, 'name', 'region')
-
-# g <- ggplot(data = results, aes(x = pctLeave, y = turnout, color = region))
-# g <- g + geom_point()
-# g <- g + facet_wrap(~region)
-# g
-
-ui <- fluidPage(
+stations <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/londonCycleHire-stations.csv')
+stations[, started := as.Date(as.character(started), '%Y%m%d') ]
     
-    selectInput('cboRegion', 'REGION:', choices = c('TOTAL', levels(results$region)) ),
-    
-    plotOutput('ggp')
-    
+ui <- navbarPage('London Cycle hire', theme = shinytheme('united'),
+    tabPanel('table', dataTableOutput('tDT') ),
+    tabPanel('map', leafletOutput('mLF', height = '800px') )
 )
 
-server <- function(input, output, session) {
-    
-    output$ggp <- renderPlot({
-        if(input$cboRegion == 'TOTAL'){
-            g <- ggplot(data = results, aes(x = pctLeave, y = turnout))
-            g <- g + geom_point(aes(color = region))
-            g <- g + facet_wrap(~region)
-        } else {
-            g <- ggplot(data = results[region == input$cboRegion], aes(x = pctLeave, y = turnout))
-            g <- g + geom_point(aes(color = district))
-        }
-        g
+server <- function(input, output) {
+    output$tDT <- renderDataTable(
+        datatable(stations,
+            rownames = FALSE,
+            class = 'display',
+            selection = 'single',
+            extensions = c('Scroller'),
+            options = list(
+               scrollX = TRUE,
+               scrollY = 600,
+               scroller = TRUE,
+               searchHighlight = TRUE,
+               columnDefs = list( list(targets = 1:3, visible = FALSE) ),
+               dom = 'frtip'
+            )
+        ) %>% formatCurrency(10:12, '', digits = 0)
+    )
+    output$mLF <- renderLeaflet({
+        stations %>% leaflet() %>% 
+            addProviderTiles("CartoDB.Positron") %>%
+            setView(lng = mean(stations$X_lon), lat = mean(stations$Y_lat), zoom = 13) %>%
+            addCircleMarkers(~X_lon, ~Y_lat, 
+                             radius = stations[, hires]/10000, 
+                             stroke = TRUE, 
+                             weight = 1,
+                             fillOpacity = 0.6, 
+                             popup = ~paste(
+                                 paste('<b>', address, '</b><br />'), 
+                                 postcode, place, area, '',
+                                 paste('Total docks:', docks),
+                                 paste('Started:', format(started, format = '%d %b %Y')),
+                                 sep = '<br />'
+                             )
+            )
     })  
-    
 }
 
 shinyApp(ui = ui, server = server)

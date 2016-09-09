@@ -2,9 +2,11 @@
 #   - Leaflet-providers preview: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 #   - Color Bewer Palettes: http://colorbrewer2.org/
 
-lapply(c('data.table', 'DT', 'jsonlite', 'leaflet'), require, character.only = TRUE)
+# lapply(c('data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet'), install.packages)
+lapply(c('data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet'), require, character.only = TRUE)
 
-# EX 1, simple location maps using TFL Santander Cycle hire schema datapoints
+##############################################################################################################
+# EX.1 - location maps using API from TFL Santander Cycle hire schema datapoints
 stations <- data.table(fromJSON(txt = 'https://api.tfl.gov.uk/bikepoint'), key = 'id')
 stations %>% 
     leaflet() %>% 
@@ -17,73 +19,30 @@ stations %>%
     addLegend('bottomright', colors = '#ffa500', labels = 'Station (click on any dot for more info)', title = 'LONDON SANTANDER CYCLES HIRE')
 
 ##############################################################################################################
+# EX.2 - SCATTERPLOTS TO ANALYZE EU-REF RESULTS
 
-# MAP OF LONDON SANTANDER CYCLES PLUS STATS 
-# Leaflet-providers preview: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
-
-stations <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/londonCycleHire-stations.csv')
-stations[, started := as.Date(as.character(started), '%Y%m%d') ]
-datatable(stations,
-   rownames = FALSE,
-   class = 'display',
-   extensions = c('Scroller'),
-   options = list(
-       scrollX = TRUE,
-       scrollY = 400,
-       scroller = TRUE,
-       searchHighlight = TRUE,
-       dom = 'frtip'
-   )
-)
-stations %>% leaflet() %>% 
-    addProviderTiles("CartoDB.Positron") %>%
-    setView(lng = mean(stations$X_lon), lat = mean(stations$Y_lat), zoom = 13) %>%
-    addCircleMarkers(~X_lon, ~Y_lat, 
-                     radius = stations[, hires]/10000, 
-                     stroke = TRUE, 
-                     weight = 1,
-                     fillOpacity = 0.6, 
-                     popup = ~paste(
-                         paste('<b>', address, '</b><br />'), 
-                         postcode, place, area, '',
-                         paste('Total docks:', docks),
-                         paste('Started:', format(started, format = '%d %b %Y')),
-                         sep = '<br />'
-                     )
-    )
-
-##############################################################################################################
-
-# QUICK THEMATIC MAP ABOUT LAST EU REFERENDUM
-# Color Bewer Palettes: http://colorbrewer2.org/
-# command to test whether the GeoJSON driver works: "GeoJSON" %in% ogrDrivers()$name
-
-lapply(c('data.table', 'leaflet', 'rgdal'), require, character.only = TRUE)
 results <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/EU-ref.csv')
-results[, turnout := Cast/Electorate]
-results[, pctLeave := Leave/Valid]
-boundaries <- readOGR("https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/administrative/gb/lad.json", "OGRGeoJSON")
-boundaries$pctLeave <- results$Leave/results$Valid
-pal <- colorNumeric(palette = "BrBG", domain = boundaries$pctLeave )
-m <- leaflet(boundaries) %>% 
-        addProviderTiles("CartoDB.Positron") %>%
-        setView(lng = -2.547855, lat = 54.00366, zoom = 5) %>%
-        addPolygons(stroke = FALSE, smoothFactor = 0.2, fillOpacity = 1, color = ~pal(pctLeave) )    
-        addPolygons(weight = 1, color = '#444444', fill = FALSE)
+results[, turnout := Cast / Electorate * 100]
+results[, pctLeave := Leave / Valid * 100]
 
+geo_locations <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/geo_locations_uk.csv')
+geo_lookups <- fread('https://raw.githubusercontent.com/lvalnegri/datasets/master/geo_lookups_uk.csv')
+results <- merge(results, unique(geo_lookups[, .(LAD_id, RGN_id)]), by = 'LAD_id')
+results <- merge(results, geo_locations[type == 'LAD', .(id, name)], by.x = 'LAD_id', by.y = 'id')
+results[, name := as.factor(name)]
+setnames(results, 'name', 'district')
+results <- merge(results, geo_locations[type == 'RGN', .(id, name)], by.x = 'RGN_id', by.y = 'id')
+results[, name := as.factor(name)]
+setnames(results, 'name', 'region')
 
-
-##############################################################################################################
-
-# SCATTERPLOTS TO ANALYZE POSSIBLE CORRELATIONS BETWEEN
- 
-
-
-
-##############################################################################################################
-
-# BASIC SHINY APP ADDING SOME INTERACTIVITY TO PREVIOUS MAP
-
-lapply(c('data.table', 'DT', 'leaflet', 'RMySQL', 'shiny'), require, character.only = TRUE)
-
+g <- ggplot(data = results, aes(x = pctLeave, y = turnout, fill = pctLeave))
+g <- g + geom_vline(xintercept = 50, color = 'red', size = 0.25)
+g <- g + geom_point(colour = 'black', pch = 23, size = 3)
+g <- g + scale_fill_gradient(low = "yellow", high = "blue")
+g <- g + theme_classic() 
+g <- g + theme(axis.text.x = element_blank(), axis.title.x=element_blank(), axis.ticks=element_blank(), legend.position = 'none')
+g <- g + labs(title = 'EU Referendum Results', x = '')
+g <- g + facet_wrap(~region)
+g <- g + geom_hline(data = results[, .(median(turnout)), region], aes(group = region, yintercept = V1), color = 'gray', linetype="dotted") 
+g
 
