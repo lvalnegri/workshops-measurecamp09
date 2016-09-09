@@ -3,17 +3,12 @@ title: "Setup a (not so) personal analytics server"
 author: "Luca Valnegri (l.valnegri@datamaps.co.uk)"
 date: "10/09/2016"
 ---
-    
-    
+
 ## Introduction 
-    
-*R* is one of the most popular programming language, and it's free to use. *RStudio* is the most popular IDE for *R*. *Shiny* and *RMarkdown* are two *R* packages that allow users to convert *R* code into interactive webpages and dynamic documents online. 
-*RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization or anyone in the world with access to the Internet. 
 
-This relatively short doc explains how to set up RStudio Server and Shiny Server on an Ubuntu Machine in the Cloud using the Google Compute Engine part of their IaaS Google cloud Platform. The current offer for a trial is $300 for 2 months, that allows anyone to learn how to build a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
+*R* is one of the most popular programming language in the world, it's free to use, it has a vast and community, but its learning curve is quite steep. Here comes *RStudio*, as the most popular IDE for *R*, that offers a great productivity enhancement. *Shiny* and *RMarkdown* are then two *R* packages that allow users to easily convert *R* code into interactive webpages and dynamic documents online. Finally, *RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization or anyone in the world with access to the Internet. 
 
-*Git* + *GitHub*, or how anyone can share his/her own projects with anyone (and having a backup as well)
- - *GA Demo Account*, or how anyone can learn GA by experimenting with *real* data from the Google Merchandise Store
+This relatively short doc explains how to set up *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete IaaS offer called *Google Cloud Platform*. The current offer for a trial is $300 for 2 months, that allows anyone to learn how to build a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
 
 
 ## Setting up the data-analytics framework
@@ -52,30 +47,31 @@ We can't go through n both cases, it's useful and safer to commit some time to a
 
 ### Install R
 
-- Create a user, home directory and set password:
+ - Create a user, home directory and set password:
+ ```
+ sudo useradd analytics
+ sudo mkdir /home/analytics
+ sudo passwd analytics
+ sudo chmod -R 0777 /home/analytics
+ ```
 
-```
-sudo useradd analytics
-sudo mkdir /home/analytics
-sudo passwd analytics
-sudo chmod -R 0777 /home/analytics
-```
+ - add the CRAN repository to the system file: 
 
-- add the CRAN repository to the system file: 
+  - open the system file containing a list of *unofficial repositories* to get extra software: 
+   
+    `sudo nano /etc/apt/sources.list`
 
-  - open the file containing a list of *unofficial repositories* to get extra software: `sudo nano /etc/apt/sources.list`
-  - add following entry (linux 16.04): `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/` (change **xenial** with **trusty** if using Ubuntu 14.04).
+    and add the following entry: 
+   
+    `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
+
   - add the public key of Michael Rutter to secure apt: 
     ```
     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
     gpg -a --export E084DAB9 | sudo apt-key add -
     ```
 
-If the above does not work (mostly because of firewall issues) try the following: 
-gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
-gpg -a --export E084DAB9 | sudo apt-key add -
-
-- update & upgrade apt-get: 
+  - update and upgrade the system: 
 sudo apt-get update
 sudo apt-get upgrade
 
