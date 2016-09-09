@@ -48,71 +48,52 @@ We can't go through n both cases, it's useful and safer to commit some time to a
 ### Install R
 
  - Create a user, home directory and set password:
- ```
- sudo useradd analytics
- sudo mkdir /home/analytics
- sudo passwd analytics
- sudo chmod -R 0777 /home/analytics
- ```
+   ```
+   sudo useradd analytics
+   sudo mkdir /home/analytics
+   sudo passwd analytics
+   sudo chmod -R 0777 /home/analytics
+   ```
 
  - add the CRAN repository to the system file: 
 
-  - open the system file containing a list of *unofficial repositories* to get extra software: 
+   - open the system file containing a list of *unofficial repositories* to get extra software: 
    
-    `sudo nano /etc/apt/sources.list`
+     `sudo nano /etc/apt/sources.list`
 
-    and add the following entry: 
+     and add the following entry: 
    
-    `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
+     `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
 
-  - add the public key of Michael Rutter to secure apt: 
+   - add the public key of Michael Rutter to secure apt: 
+ 
+     ```
+     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+     gpg -a --export E084DAB9 | sudo apt-key add -
+     ```
+
+ - update and upgrade the system: 
+
     ```
-    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-    gpg -a --export E084DAB9 | sudo apt-key add -
+    sudo apt-get update
+    sudo apt-get upgrade
     ```
-
-  - update and upgrade the system: 
-sudo apt-get update
-sudo apt-get upgrade
-
-- install *R*: sudo apt-get install r-base
-
-- install *R tools* to be able to compile packages from source: sudo apt-get install r-base-dev
-
-#### Uninstalling previous R versions
-
-- remove all packages from inside R B4 uninstalling
-sudo su
-R
-
-pkgList <- installed.packages(priority = 'NA') 
-remove.packages(pkgList) 
-.libPaths()  # check libraries directories to be cancelled after exiting R 
-q() 
-exit
-
-- delete directories: 
-sudo rm -rf /usr/local/lib/R
-sudo rm -rf /usr/lib/R
-
-- remove all R related packages and libraries:
-sudo apt-get remove --purge r-base r-cran
-sudo apt-get remove --purge r-studio
-sudo apt-get autoremove
-
-- just as a final control, list all the installed packages starting with r: dpkg -l | grep ^ii | grep -E "\Wr-"
-
+    
+ - install *R*: `sudo apt-get install r-base`
 
 ### Install RStudio Server
 
-- install auxiliary Ubuntu libraries: 
-sudo apt-get install gdebi-core
-sudo apt-get install libapparmor1
+ - install auxiliary Ubuntu libraries: 
 
-- download Rstudio Server visiting [this page](http://www.rstudio.com/products/rstudio/download/preview/ '') and copying the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*: 
-wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb
+   ```
+   sudo apt-get install gdebi-core
+   sudo apt-get install libapparmor1
+   ```
 
-- install Rstudio Server: sudo gdebi rstudio-server-0.99.1246-amd64.deb
+ - download Rstudio Server: `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
+   It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/ '') to see if any newer version is available, copying the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
+
+ - install Rstudio Server: `sudo gdebi rstudio-server-0.99.1246-amd64.deb`
 
 Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you earlier, and *happy R coding!*
 
