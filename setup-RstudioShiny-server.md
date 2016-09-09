@@ -201,11 +201,13 @@ When you've finished to develop a Shiny app, and want to move it to the server l
 
 __*Happy coding*__
 
+
 ## Where to go next?
 
- - [RStudio Talks](https://www.rstudio.com/resources/webinars/shiny-developer-conference/) from the Shiny Developer Conference
- - [Video from the 2016 useR!](https://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
- - [RStudio Webinars](https://www.rstudio.com/resources/webinars/)
+ - [RStudio Talks](http://www.rstudio.com/resources/webinars/shiny-developer-conference/) from the Shiny Developer Conference
+ - [Video from the 2016 useR!](http://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
+ - [RStudio Webinars](http://www.rstudio.com/resources/webinars/)
+ - [Stack Overflow](http://stackoverflow.com/tags/r/info)
 
 
 ## Credits
