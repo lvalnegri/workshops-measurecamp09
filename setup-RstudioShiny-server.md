@@ -119,9 +119,11 @@ Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:
    exit
    ```
    
-  - download Shiny Server: `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
+ - download Shiny Server installation file: 
 
-    It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
+   `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
+
+ It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
 
  - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
 
