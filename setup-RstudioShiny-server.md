@@ -190,8 +190,15 @@ To this purpose, let's first download the code and datasets that I prepared for 
 
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
  - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
- - Now from **File** -> **Open** choose **packages.R**
- 
+ - Now from **File** -> **Open** choose **R-snippets.R** and run snippets by chunk.
+
+When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you just need the following two commands:
+
+  ```
+  sudo mkdir /srv/shiny-server/<APP-NAME>
+  sudo cp -R /home/<USER>/<APP-PATH>/ /srv/shiny-server/<APP-NAME>/
+  ```
+
 __*Happy coding*__
 
 ## Where to go next?
@@ -203,7 +210,7 @@ __*Happy coding*__
 
 ## Credits
 
- - [Santander Cycles data](cycling.data.tfl.gov.uk) supplied by Transport for London
+ - [Santander Cycles data](http://cycling.data.tfl.gov.uk) supplied by Transport for London
  - UK Geography lookups provided by [ONS](http://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)
  - [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
 
