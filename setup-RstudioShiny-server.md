@@ -23,17 +23,17 @@ This short doc explains the essential for setting up both *RStudio Server* and *
 
  - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*. You're not going to be charged, though, unless you explicitly agree to continue at the end of the trial.
  - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
- - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
+ - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use and wait for the page to end loading.
  - Click the *Create instance button*
 
    - Name your future VM correspondingly
    - Choose one of the **europe-west1** zone
    - Under *Machine type* choose *Customise*, and then **4 Cores + 8GB memory**. 
-   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
+   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **80GB** *size*.
    - In the Firewall section, select **Allow HTTP traffic**.
-   - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
+   - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine.
  
-   The above configuration should cost ~$113monthly, but even if it weren't free, you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
+   The above configuration is useful to install quickly all the subsequent software, and shouldn't give any problem for most of the typical usages. After the trial, the hardware could be changed whenever pleased according to use.
 
  - Now, click on the machine name's link, near the green tick, to open the configuration page. 
  - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
@@ -47,13 +47,13 @@ This short doc explains the essential for setting up both *RStudio Server* and *
     
 The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
-For the limited purpose of this demo, we are going to use the Google SSH browser that you can open clicking the **SSH** button on the far right of the instance line.
+For the limited purpose of this demo, we are going to use the Google SSH browser that you can open clicking the **SSH** button at the top of the instance details page.
 
 ## Installing the analytics software
 
 ### Install R
 
- - Create a user, home directory and set password:
+ - Create a user, home directory and set password and permissions:
    ```
    sudo useradd analytics
    sudo mkdir /home/analytics
@@ -63,7 +63,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
  - add the CRAN repository to the system file: 
 
-   - open the system file containing a list of *unofficial repositories* to get extra software: 
+   - open the system file containing the list of *unofficial* Ubuntu repositories: 
    
      `sudo nano /etc/apt/sources.list`
 
@@ -96,7 +96,9 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    sudo apt-get install libapparmor1
    ```
 
- - download Rstudio Server: `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
+ - download Rstudio Server installation file: 
+   
+   `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
 
    It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
 
