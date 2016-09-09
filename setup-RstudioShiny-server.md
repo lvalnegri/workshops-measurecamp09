@@ -6,7 +6,13 @@ date: "10/09/2016"
 
 ## Introduction 
 
-*R* is one of the most popular programming language in the world, it's free to use, it has a vast and community, but its learning curve is quite steep. Here comes *RStudio*, as the most popular IDE for *R*, that offers a great productivity enhancement. *Shiny* and *RMarkdown* are then two *R* packages that allow users to easily convert *R* code into interactive webpages and dynamic documents online. Finally, *RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization or anyone in the world with access to the Internet. 
+*R* is one of the most popular programming language in the world, it's free to use, it has a vast, vibrant and supporting community, but its environment is quite simple and dry, even is powerful, and its learning curve is quite steep. Moreover, there is no unique interface shared among different OS.
+
+Here comes *RStudio*, as the nowadays most popular IDE for *R*, that offers great productivity enhancement, and a unique GUI for Linux, Windows and Mac. 
+
+*Shiny* and *RMarkdown* are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
+
+Finally, *RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization or anyone in the world with access to the Internet. 
 
 This relatively short doc explains how to set up *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete IaaS offer called *Google Cloud Platform*. The current offer for a trial is $300 for 2 months, that allows anyone to learn how to build a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
 
