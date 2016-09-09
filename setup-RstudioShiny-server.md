@@ -209,6 +209,9 @@ __*Happy coding*__
  - [RStudio Webinars](http://www.rstudio.com/resources/webinars/)
  - [Stack Overflow](http://stackoverflow.com/tags/r/info)
 
+ - [Add Google Analytics to a Shiny app](http://shiny.rstudio.com/articles/google-analytics.html)
+ - Havae a read at [Mark Edmonson](http://markedmondson.me/) blog
+
 
 ## Credits
 
