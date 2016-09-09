@@ -180,9 +180,21 @@ To this purpose, let's first download the code and datasets that I prepared for 
  - Open the Rstudio Server
  - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in the *Git executable* textbox
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
- - In *Repository URL* enter the path of the my repository containing some datasets we will use with the scripts **https://github.com/lvalnegri/datasets** and then *Create*. 
- - From the same menu select again **New project** -> **Version control** -> **Git**. 
- - In Repository URL enter now the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
+ - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
  - Now from **File** -> **Open** choose **packages.R**
  
 __*Happy coding*__
+
+## Where to go next?
+
+ - [RStudio Talks](https://www.rstudio.com/resources/webinars/shiny-developer-conference/) from the Shiny Developer Conference
+ - [Video from the 2016 useR!](https://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
+ - [RStudio Webinars](https://www.rstudio.com/resources/webinars/)
+
+
+## Credits
+
+ - [Santander Cycles data](cycling.data.tfl.gov.uk) supplied by Transport for London
+ - UK Geography lookups provided by [ONS](http://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)
+ - [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
+
