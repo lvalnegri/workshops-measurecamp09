@@ -91,74 +91,84 @@ We can't go through n both cases, it's useful and safer to commit some time to a
    ```
 
  - download Rstudio Server: `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
-   It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/ '') to see if any newer version is available, copying the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
+
+   It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
 
  - install Rstudio Server: `sudo gdebi rstudio-server-0.99.1246-amd64.deb`
 
-Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you earlier, and *happy R coding!*
-
+Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier, and *happy R coding!*
 
 ### Install Shiny Server
 
-- Install first the *shiny* and *rmarkdown* packages from inside R
-sudo su
-R
-install.packages('shiny')
-install.packages('rmarkdown')
-q()
-exit
+ - Install first the *shiny* and *rmarkdown* packages from inside R
+ 
+   ```
+   sudo su
+   R
+   install.packages('shiny')
+   install.packages('rmarkdown')
+   q()
+   exit
+   ```
+   
+  - download Shiny Server: `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
 
-- download Shiny Server visiting [this page](https://www.rstudio.com/products/shiny/download-server/ '') and copying the address of the current version: 
-wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb
+    It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
 
-- install Shiny Server: sudo gdebi shiny-server-1.4.4.801-amd64.deb
+ - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
 
+At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a shiny app and a Rmarkdown document on the right of the home page.
 
-At this point your newly built Ubuntu machine should have a complete working Shiny Server that can host Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a shiny app and a Rmarkdown document on the right of the home page.
+By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port **3838**. This means that any Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
 
-By default, the server is configured to serve applications in the **/srv/shiny-server/** directory listening to port **3838**. This means that any Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
+To modify these and other default settings, the configuration file for Shiny Server is found at */etc/shiny-server/shiny-server.conf*. 
+Other steps that should be surely taken are:
+ - Adding https
+ - Adding authentication
+ - Changing address
 
-To modify these and other default settings, the configuration file for Shiny Server is at **/etc/shiny-server/shiny-server.conf**. 
+### Install Packages
 
+The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for *devtools, but I thought useful to list some of the dependencies needed for the most used packages.
 
+ - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev & sudo apt-get install libssl-dev
+ - XML: sudo apt-get install libxml2-dev
+ - rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
+ - RMySQL: sudo apt-get install libmysqlclient-dev
+ - rgdal: sudo aptitude install libproj-dev (sudo apt-get install aptitude if not working) 
+ - rgeos: sudo aptitude install libgdal-dev
+ - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
+ - PostGRESql: sudo apt-get install libpq-dev
 
+All packages should be installed as superuser **su** to ensure a unique shared library between users and the shiny user, so to avoid duplication and possible mismatches in versions:
 
-
-### Additional Packages
-
-
-#### Install dependencies
-
-- devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev & sudo apt-get install libssl-dev
-- RMySQL: sudo apt-get install libmysqlclient-dev
-- RODBC (MSSQL Server): *see related comment*
-- rgdal: sudo aptitude install libproj-dev (sudo apt-get install aptitude if not working)
-- rgeos: sudo aptitude install libgdal-dev
-- geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
-- XML: sudo apt-get install libxml2-dev
-- rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
-- PostGRESql: sudo apt-get install libpq-dev
-- rgl: sudo apt-get build-dep r-cran-rgl
-- EBImage: sudo apt-get install libfftw3-dev
-
-
-### Connect RStudio with Git: Tools -> Global Options -> Git/SVN
-
-- From the top right menu Project: (None) select New project -> Version control -> Git. In Repository URL enter https://github.com/lvalnegri/datasets and then Create. From the same menu select again New project -> Version control -> Git. In Repository URL enter https://github.com/lvalnegri/presentations-measurecamp09 and then Create. Now from File -> Open choose packages.R
-
-- All packages should be installed as superuser **su** to ensure a unique shared library between users and the shiny user, and avoid duplication and possible mismatches in versions:
+```
 sudo su
 R
 install.packages("pkg_name")
 q()
 exit
+```
 
 The single installation line could be replaced by the following in case of multiple installations:
 dep.pkg <- c(...) # list of packages
 pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
 if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
 
-- Even if not directly needed for installing packages from CRAN, it's important to install *devtools* alone as the first package because some packages need to install packages dependencies that need to be compiled from source. 
+For the purpose of this demo, I advise to only run the following code:
 
-- For the purpose of this demo, I advise to only run the following code:
-    
+```
+lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
+```
+
+### Connect RStudio with Git: Tools -> Global Options -> Git/SVN
+
+GitHub is an online version control, which has also become one of the most to share and backup code. *RStudio* can link to *Git* and features some nice additional commands to exploit the power of GitHub. Let's download the code and datasets that I prepared for you.
+
+ - Open the Rstudio Server
+ - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
+ - In *Repository URL* enter the path of the my repository containing some datasets we will use with the scripts **https://github.com/lvalnegri/datasets** and then *Create*. 
+ - From the same menu select again **New project** -> **Version control** -> **Git**. 
+ - In Repository URL enter now the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
+ - Now from **File** -> **Open** choose **packages.R**
+
