@@ -6,54 +6,54 @@ date: "10/09/2016"
 
 ## Introduction 
 
-*R* is one of the most popular programming language in the world, it's free to use, it has a vast, vibrant and supporting community, but its environment is quite simple and dry, even if powerful, and its learning curve is quite steep. Moreover, there is no unique interface shared among different OS; actually, on Linux there is only the command line.
+[*R*](http://www.r-project.org/) is one of the most popular programming language in the world, it's free to use, it has a vast, vibrant and supporting community, but its environment is quite simple and dry, even if powerful, and its learning curve is quite steep. Moreover, there is no unique interface shared among different OS; actually, on Linux there is only the command line.
 
-Here comes *RStudio*, as the nowadays most popular IDE for *R*, that offers great productivity enhancements, and a unique GUI for Linux, Windows and Mac. 
+Here comes [*RStudio*](http://www.rstudio.com/), as the nowadays most popular IDE for *R*, that offers great productivity enhancements, and a unique GUI for Linux, Windows and Mac. 
 
-*Shiny* and *RMarkdown* are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
+[*Shiny*](http://shiny.rstudio.com/gallery/) and [*RMarkdown*](http://rmarkdown.rstudio.com/gallery.html) are two relatively recent *R* packages, that allow users to easily convert *R* code into interactive webpages and dynamic documents online. 
 
-Finally, *RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
+Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to easily share Shiny *apps* and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
 
-This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial is $300 for 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
+This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
 
 
 ## Setting up the data-analytics framework
 
 ### Create a GCE Virtual Machine
 
-- Go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. Enter the minimum needed (names, email, date of birth), then click *Create*. Click *Continue to Google Developers Console*. Click on the *Yes* radio buttons to agree with T&C, then click *Agree and continue*. Fill the information about the billing method and then Click *Start your free trial*.
-- Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT*. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
-- Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
-- Click the *Create instance button*
-    - Name your future VM correspondingly
-- Choose one of the **europe-west1** zone
-- Under *Machine type* choose *Customise*, and then **8 Cores + 8GB memory**. It is currently ~$199monthly, but you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
-- In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
-- In the Firewall section, select **Allow HTTP traffic**.
-- Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
-- Now, click on the machine name's link, near the green tick, to open the configuration page. 
-- Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
+ - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*. You're not going to be charged, though, unless you explicitly agree to continue at the end of the trial.
+ - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
+ - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use and wait for the page to end loading.
+ - Click the *Create instance button*
+
+   - Name your future VM correspondingly
+   - Choose one of the **europe-west1** zone
+   - Under *Machine type* choose *Customise*, and then **4 Cores + 8GB memory**. 
+   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **80GB** *size*.
+   - In the Firewall section, select **Allow HTTP traffic**.
+   - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine.
+ 
+   The above configuration is useful to install quickly all the subsequent software, and shouldn't give any problem for most of the typical usages. After the trial, the hardware could be changed whenever pleased according to use.
+
+ - Now, click on the machine name's link, near the green tick, to open the configuration page. 
+ - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
     
     - Enter the name **rstudio-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:8787**
     - Enter the name **shiny-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:3838**
+
+- In that same page you can find the *External IP* you'll want to enter later in the browser to connect to your servers.
     
 ### Working with a Virtual Machine
     
 The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
-
-We can't go through n both cases, it's useful and safer to commit some time to a few preliminary operations to secure the VM from potential hackers:
-
- - Create alternative user with public key + password, so no direct su power
- - Change SSH port & Disable SSH root access
- - Install a firewall (*fail2ban*)
- - Install an antivirus (ClamAV) 
+For the limited purpose of this demo, we are going to use the Google SSH browser that you can open clicking the **SSH** button at the top of the instance details page.
 
 ## Installing the analytics software
 
 ### Install R
 
- - Create a user, home directory and set password:
+ - Create a user, home directory and set password and permissions:
    ```
    sudo useradd analytics
    sudo mkdir /home/analytics
@@ -63,7 +63,7 @@ We can't go through n both cases, it's useful and safer to commit some time to a
 
  - add the CRAN repository to the system file: 
 
-   - open the system file containing a list of *unofficial repositories* to get extra software: 
+   - open the system file containing the list of *unofficial* Ubuntu repositories: 
    
      `sudo nano /etc/apt/sources.list`
 
@@ -96,7 +96,9 @@ We can't go through n both cases, it's useful and safer to commit some time to a
    sudo apt-get install libapparmor1
    ```
 
- - download Rstudio Server: `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
+ - download Rstudio Server installation file: 
+   
+   `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
 
    It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
 
@@ -117,9 +119,11 @@ Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:
    exit
    ```
    
-  - download Shiny Server: `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
+ - download Shiny Server installation file: 
 
-    It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
+   `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
+
+ It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
 
  - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
 
@@ -127,7 +131,10 @@ At this point your newly built Ubuntu machine should have a complete working Shi
 
 By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port **3838**. This means that any Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
 
-To modify these and other default settings, the configuration file for Shiny Server is found at */etc/shiny-server/shiny-server.conf*. 
+To modify these and other default settings, the configuration file for Shiny Server is found at 
+
+`/etc/shiny-server/shiny-server.conf`
+
 Other steps that should be surely taken are:
  - Adding https
  - Adding authentication
@@ -135,9 +142,9 @@ Other steps that should be surely taken are:
 
 ### Install Packages
 
-The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for *devtools, but I thought useful to list some of the dependencies needed for the most used packages.
+The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for the developers' package *devtools*, but the following list some of the dependencies needed for the most used packages.
 
- - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev & sudo apt-get install libssl-dev
+ - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
  - XML: sudo apt-get install libxml2-dev
  - rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
  - RMySQL: sudo apt-get install libmysqlclient-dev
@@ -156,7 +163,7 @@ q()
 exit
 ```
 
-The single installation line could be replaced by the following snippet in case of multiple installations:
+The single installation line could be replaced by the following snippet in case of multiple packages to install:
 
 ```
 dep.pkg <- c(...) # list of packages
@@ -169,17 +176,41 @@ For the purpose of this short demo, though, I advise you to only run the followi
 lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
 ```
 
-### Connect RStudio with Git
+### Connect RStudio with Git and GitHub
 
-*GitHub* is an online repository hosting service based on the version control system *Git*, which has also become one of the most popular website where developers and resaearchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
+[*GitHub*](https://github.com) is an online repository hosting service based on the version control system [*Git*](https://git-scm.com/), which has also become one of the most popular website where developers and researchers share (and backup!) their code and data. *RStudio* can link to *Git* on the machine and *GitHub* on the web, and provides a simple GUI that eases the hassle to deal with the *Git* shell.
 
-Let's download the code and datasets that I prepared for you!
+ - Open the Rstudio Server browser window
+ - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in the *Git executable* textbox.
 
- - Open the Rstudio Server
- - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in *Git executable*
+
+## Try the system
+
+To this purpose, let's first download the code and datasets that I prepared for you!
+
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
- - In *Repository URL* enter the path of the my repository containing some datasets we will use with the scripts **https://github.com/lvalnegri/datasets** and then *Create*. 
- - From the same menu select again **New project** -> **Version control** -> **Git**. 
- - In Repository URL enter now the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
- - Now from **File** -> **Open** choose **packages.R**
+ - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
+ - Now from **File** -> **Open** choose **R-snippets.R** and run snippets by chunk.
+
+When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you just need the following two commands:
+
+  ```
+  sudo mkdir /srv/shiny-server/<APP-NAME>
+  sudo cp -R /home/<USER>/<APP-PATH>/ /srv/shiny-server/<APP-NAME>/
+  ```
+
+__*Happy coding*__
+
+## Where to go next?
+
+ - [RStudio Talks](https://www.rstudio.com/resources/webinars/shiny-developer-conference/) from the Shiny Developer Conference
+ - [Video from the 2016 useR!](https://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
+ - [RStudio Webinars](https://www.rstudio.com/resources/webinars/)
+
+
+## Credits
+
+ - [Santander Cycles data](http://cycling.data.tfl.gov.uk) supplied by Transport for London
+ - UK Geography lookups provided by [ONS](http://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)
+ - [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
 
