@@ -15,16 +15,22 @@ server <- function(input, output) {
             rownames = FALSE,
             class = 'display',
             selection = 'single',
-            extensions = c('Scroller'),
+            extensions = c('FixedColumns', 'Scroller'),
             options = list(
                scrollX = TRUE,
-               scrollY = 600,
+               scrollY = 400,
                scroller = TRUE,
+               deferRender = TRUE,
                searchHighlight = TRUE,
+               fixedColumns = list(leftColumns = 4),
                columnDefs = list( list(targets = 1:3, visible = FALSE) ),
                dom = 'frtip'
             )
-        ) %>% formatCurrency(10:12, '', digits = 0)
+        ) %>% 
+        formatCurrency(10:12, '', digits = 0) %>%
+        formatStyle('docks', background = styleColorBar(stations[, docks], '#c6dbef'), backgroundSize = '98% 88%', backgroundRepeat = 'no-repeat', backgroundPosition = 'center') %>%
+        formatStyle('hires', background = styleColorBar(stations[, hires], '#99d8c9'), backgroundSize = '98% 88%', backgroundRepeat = 'no-repeat', backgroundPosition = 'center') %>%
+        formatStyle('duration', background = styleColorBar(stations[, duration], '#d95f0e'), backgroundSize = '98% 88%', backgroundRepeat = 'no-repeat', backgroundPosition = 'center') 
     )
     output$mLF <- renderLeaflet({
         stations %>% leaflet() %>% 
