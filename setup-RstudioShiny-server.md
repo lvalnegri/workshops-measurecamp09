@@ -2,26 +2,17 @@
 title: "Setup a (not so) personal analytics server"
 author: "Luca Valnegri (l.valnegri@datamaps.co.uk)"
 date: "10/09/2016"
-output: 
-    html_document: 
-    toc: yes
-toc_depth: 3
 ---
     
     
 ## Introduction 
     
-*R* is one of the most . RStudio is the most popular IDE for *R*. *Shiny* and *RMarkdown* are two *R* packages that allows users to convert *R* code into an interactive webpage and documents online. 
-*RStudio* and *Shiny Servers* allows any researcher or analyst to share shiny apps and RMarkdown documents with your colleagues, stakeholders in your organization or anyone in the world with access to the Internet. 
-This relatively short doc explains how to set up Shiny Server on an Ubuntu Machine in the Cloud using the Google IaaS (Infrasctructure as a Service) Compute Engine (*GCE*).
+*R* is one of the most popular programming language, and it's free to use. *RStudio* is the most popular IDE for *R*. *Shiny* and *RMarkdown* are two *R* packages that allow users to convert *R* code into interactive webpages and dynamic documents online. 
+*RStudio Server* and *Shiny Server* allow any researcher or analyst to share shiny apps and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization or anyone in the world with access to the Internet. 
 
- - *IaaS*, or how anyone can learn how to use his own cloud server without breaking the bank (actually, without even spending 1p)
- - *Ubuntu Linux*, 
- - *R*, 
- - *RStudio*, 
- - *Shiny*,
- - *RStudio Server* + *Shiny Server*, or how anyone can build a powerful analytics machine in minutes
- - *Git* + *GitHub*, or how anyone can share his/her own projects with anyone (and having a backup as well)
+This relatively short doc explains how to set up RStudio Server and Shiny Server on an Ubuntu Machine in the Cloud using the Google Compute Engine part of their IaaS Google cloud Platform. The current offer for a trial is $300 for 2 months, that allows anyone to learn how to build a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
+
+*Git* + *GitHub*, or how anyone can share his/her own projects with anyone (and having a backup as well)
  - *GA Demo Account*, or how anyone can learn GA by experimenting with *real* data from the Google Merchandise Store
 
 
@@ -29,7 +20,7 @@ This relatively short doc explains how to set up Shiny Server on an Ubuntu Machi
 
 ### Create a GCE Virtual Machine
 
-- Go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. Enter the minimum needed (names, email, date of birth), then click *Create*. Click *Continue to Google Developers Console*. Click on the *Yes* radio buttons to agree with T&C, then click *Agree and continue*. Fill the information about the and then Click *Start your free trial*.
+- Go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. Enter the minimum needed (names, email, date of birth), then click *Create*. Click *Continue to Google Developers Console*. Click on the *Yes* radio buttons to agree with T&C, then click *Agree and continue*. Fill the information about the billing method and then Click *Start your free trial*.
 - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT*. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
 - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use from the top left arrow list.
 - Click the *Create instance button*
@@ -38,32 +29,24 @@ This relatively short doc explains how to set up Shiny Server on an Ubuntu Machi
 - Under *Machine type* choose *Customise*, and then **8 Cores + 8GB memory**. It is currently ~$199monthly, but you're going to downsizing it later. This is a configuration useful to install quickly all the subsequent software. After that, the hardware should be changed according to use.
 - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **128GB* *size*.
 - In the Firewall section, select **Allow HTTP traffic**.
-- Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like [https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>](https://console.cloud.google.com/compute/instancesDetail/zones/europe-west1-d/instances/mc-demo)
-- Now, click on the machine's name link, near the green tick, to open the configuration page. 
+- Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine. In future, you can always look at its details using a link like https://console.cloud.google.com/compute/instancesDetail/zones/<THE-NAME-OF-THE-ZONE-YOU-CHOOSE>/instances/<THE-NAME-OF-YOUR-INSTANCE>
+- Now, click on the machine name's link, near the green tick, to open the configuration page. 
 - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
     
     - Enter the name **rstudio-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:8787**
     - Enter the name **shiny-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:3838**
     
+### Working with a Virtual Machine
     
-    ### Working with a Virtual Machine
-    
-    The way these machines usually work is by *SSHing*, or using a terminal window, to commands, or *SFTPing* to transfer files. 
-In both cases, it's possible to use either a browser window, which is possibly limited as we have to login into GCE beforehand, or a specific application from whichever OS and hardware. 
+The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
+In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
 
-In both cases, it's useful and safer to commit some time to a few preliminary operations to secure the VM from potential hackers.
+We can't go through n both cases, it's useful and safer to commit some time to a few preliminary operations to secure the VM from potential hackers:
 
-
-
- - Create alternative user with public key
+ - Create alternative user with public key + password, so no direct su power
  - Change SSH port & Disable SSH root access
  - Install a firewall (*fail2ban*)
  - Install an antivirus (ClamAV) 
- - Install [Webmin](http://www.webmin.com/)
- - Install APACHE + PHP7
- - Install MySQL (with [DB Ninja](http://dbninja.com/) web interface)
- - Install Neo4j
-
 
 ## Installing the analytics software
 
@@ -182,7 +165,7 @@ To modify these and other default settings, the configuration file for Shiny Ser
 - EBImage: sudo apt-get install libfftw3-dev
 
 
-- Connect RStudio with Git: Tools -> Global Options -> Git/SVN
+### Connect RStudio with Git: Tools -> Global Options -> Git/SVN
 
 - From the top right menu Project: (None) select New project -> Version control -> Git. In Repository URL enter https://github.com/lvalnegri/datasets and then Create. From the same menu select again New project -> Version control -> Git. In Repository URL enter https://github.com/lvalnegri/presentations-measurecamp09 and then Create. Now from File -> Open choose packages.R
 
@@ -202,19 +185,3 @@ if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, depend
 
 - For the purpose of this demo, I advise to only run the following code:
     
-    
-    #### Install GitHub Packages (devtools)
-    
-    
-    ### Install Git
-    
-    
-    
-## Install Additional Services
-    
-
- - Windows file sharing protocol: *Samba*
- - Personal cloud storage: *OwnCloud*
- - Personal e-books Cloud library: *Calibre*
- - Installing a GUI (Lubuntu)
- - Remote Desktop
