@@ -210,7 +210,7 @@ __*Happy coding*__
  - [Stack Overflow](http://stackoverflow.com/tags/r/info)
 
  - [Add Google Analytics to a Shiny app](http://shiny.rstudio.com/articles/google-analytics.html)
- - Havae a read at [Mark Edmonson](http://markedmondson.me/) blog
+ - Have a read at [Mark Edmonson](http://markedmondson.me/) blog
 
 
 ## Credits
