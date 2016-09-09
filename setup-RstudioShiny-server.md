@@ -177,7 +177,7 @@ lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shin
 
 To this purpose, let's first download the code and datasets that I prepared for you!
 
- - Open the Rstudio Server
+ - Open the Rstudio Server browser window
  - Open **Tools** -> **Global Options** -> **Git/SVN**, and make sure that *Enable version control...* is checked. If not, check it and enter (or browse to) **/usr/bin/git** in the *Git executable* textbox
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
  - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
