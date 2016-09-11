@@ -99,7 +99,7 @@ We need first to install at least two *R* packages: *shiny* and *rmarkdown*. In 
 
 This is the way we can install a single package: 
 
-`sudo su - -c "R -e \"install.packages('pkg_name', repos='http://cran.rstudio.com/')\""`
+`sudo su - -c "R -e \"install.packages('pkg_name', repos = 'http://cran.rstudio.com/')\""`
 
 while multiple packages could be installed from inside *R*, launched as superuser, in the following way :
 ```
@@ -111,8 +111,8 @@ if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, depend
 Let's now go back to the terminal window. 
  - Install first the *shiny* and *rmarkdown* packages:
    ```
-   sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
-   sudo su - -c "R -e \"install.packages('rmarkdown', repos='http://cran.rstudio.com/')\""
+   sudo su - -c "R -e \"install.packages('shiny', repos = 'http://cran.rstudio.com/')\""
+   sudo su - -c "R -e \"install.packages('rmarkdown', repos = 'http://cran.rstudio.com/')\""
    ```
    
  - download Shiny Server installation file: 
@@ -121,25 +121,20 @@ Let's now go back to the terminal window.
 
  - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
 
-It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottoom of the page, and change the previous commands accordingly.
+It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottom of the page, and change the previous commands accordingly.
 
 At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a fairly basic demo Shiny app and a Rmarkdown document.
 
-By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port *3838*. This means that ANY Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
-
-To modify these and other default settings, the configuration file for Shiny Server is found at 
-
-`/etc/shiny-server/shiny-server.conf`
+By default, the *Shiny Server* is configured to serve applications in the **/srv/shiny-server/** directory owned by the **shiny** user, and listening to port **3838**. This means that ANY Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*. To modify these and other default settings, the configuration file is found at `/etc/shiny-server/shiny-server.conf`. 
 
 Other steps that should be surely taken are:
  - Adding https
  - Adding authentication
  - Changing address
 
-### Install Packages
+### Install Additional Packages
 
-The power of the *R* system is its possibility to unlimited growth using *packages*. Some of them require additional software to be installed beforehand. The attached scripts require only the libraries needed for the developers' package *devtools*, but the following list some of the dependencies needed for the most used packages.
-
+The power of the *R* system is its possibility to unlimited growth using *packages*. On a Linux machine, some of them require additional software to be installed beforehand. The following is a list of the dependencies needed for the most used packages:
  - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
  - XML: sudo apt-get install libxml2-dev
  - rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
@@ -149,7 +144,9 @@ The power of the *R* system is its possibility to unlimited growth using *packag
  - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
  - PostGRESql: sudo apt-get install libpq-dev
 
-For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository:
+
+ 
+For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository: 
 ```
 sudo su
 R
