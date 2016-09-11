@@ -62,8 +62,8 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
  - Add the CRAN repository to the system file containing the list of *unofficial* Ubuntu repositories: 
 
-   - open the system file: `sudo nano /etc/apt/sources.list`
-   - and add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
+   - open the file for editing: `sudo nano /etc/apt/sources.list`
+   - add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
 
  - Add the public key of Michael Rutter to secure apt: 
    ```
