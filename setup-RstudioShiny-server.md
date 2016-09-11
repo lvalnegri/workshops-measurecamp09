@@ -95,7 +95,7 @@ It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/
 RStudio Server should now be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier.
 
 ### Install Shiny Server
-We need first to install at least two *R* packages: *shiny* and *rmarkdown*. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure a unique *system* shared library between the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and mismatches in versions, preventing malfunctioning.
+We need first to install at least two *R* packages: *shiny* and *rmarkdown*. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure the existence of a unique *system* library shared among the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and mismatches in versions, preventing malfunctioning.
 
 This is the way we can install a single package: 
 
