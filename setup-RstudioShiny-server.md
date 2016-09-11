@@ -135,14 +135,14 @@ Other steps that should be surely taken are:
 ### Install Additional Packages
 
 The power of the *R* system is its possibility to unlimited growth using *packages*. On a Linux machine, some of them require additional software to be installed beforehand. The following is a list of the dependencies needed for the most used packages:
- - devtools: sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
- - XML: sudo apt-get install libxml2-dev
- - rJava: sudo apt-get install openjdk-7-* && sudo R CMD javareconf
- - RMySQL: sudo apt-get install libmysqlclient-dev
- - rgdal: sudo aptitude install libproj-dev (sudo apt-get install aptitude if not working) 
- - rgeos: sudo aptitude install libgdal-dev
- - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
- - PostGRESql: sudo apt-get install libpq-dev
+ - devtools: `sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev`
+ - XML: `sudo apt-get install libxml2-dev`
+ - rJava: `sudo apt-get install openjdk-7-* && sudo R CMD javareconf`
+ - RMySQL: `sudo apt-get install libmysqlclient-dev`
+ - rgdal: `sudo aptitude install libproj-dev` (`sudo apt-get install aptitude` if not working) 
+ - rgeos: `sudo aptitude install libgdal-dev`
+ - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): `sudo apt-get install libv8-dev`
+ - PostGRESql: `sudo apt-get install libpq-dev`
 
 
  
