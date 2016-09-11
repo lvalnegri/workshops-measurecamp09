@@ -54,10 +54,10 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
  - Create a user, home directory and set password and permissions. Substitute *username* with a name that suits you. Also, don't worry if when entering the password nothing happens, Linux doesn't bother to mask characters with asterisks, it just doesn't do anything!
    ```
-   sudo useradd *username*
-   sudo mkdir /home/*username*
-   sudo passwd *username*
-   sudo chmod -R 0777 /home/*username*
+   sudo useradd username
+   sudo mkdir /home/username
+   sudo passwd username
+   sudo chmod -R 0777 /home/username
    ```
 
  - Add the CRAN repository to the system file containing the list of *unofficial* Ubuntu repositories: 
