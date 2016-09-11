@@ -95,10 +95,13 @@ It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/
 RStudio Server should now be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier.
 
 ### Install Shiny Server
-We need first to install the *shiny* and *rmarkdown* packages. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure a unique shared library between the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and possible mismatches in versions, preventing malfunctioning. 
+We need first to install at least two *R* packages: *shiny* and *rmarkdown*. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure a unique *system* shared library between the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and mismatches in versions, preventing malfunctioning.
 
-This is how we can install a single package:
-while multiple packages could be installed in the following way :
+This is the way we can install a single package: 
+
+`sudo su - -c "R -e \"install.packages('pkg_name', repos='http://cran.rstudio.com/')`
+
+while multiple packages could be installed from inside R launched as superuser in the following way :
 ```
 dep.pkg <- c(...) # list of packages
 pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
@@ -108,15 +111,9 @@ if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, depend
 Let's now go back to the terminal window. 
  - Install first the *shiny* and *rmarkdown* packages:
    ```
-   sudo su
-   R
-   install.packages('shiny')
-   install.packages('rmarkdown')
-   q()
-   exit
+   sudo su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+   sudo su - -c "R -e \"install.packages('rmarkdown', repos='http://cran.rstudio.com/')\""
    ```
- answering `n` 
- 
    
  - download Shiny Server installation file: 
 
@@ -124,9 +121,9 @@ Let's now go back to the terminal window.
 
  - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
 
-It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
+It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottoom of the page, and change the previous commands accordingly.
 
-At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a shiny app and a Rmarkdown document on the right of the home page.
+At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a fairly basic demo Shiny app and a Rmarkdown document.
 
 By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port *3838*. This means that ANY Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
 
