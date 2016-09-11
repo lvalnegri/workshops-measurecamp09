@@ -60,22 +60,16 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    sudo chmod -R 0777 /home/*username*
    ```
 
- - add the CRAN repository to the system file: 
+ - Add the CRAN repository to the system file containing the list of *unofficial* Ubuntu repositories: 
 
-   - open the system file containing the list of *unofficial* Ubuntu repositories: 
-   
-     `sudo nano /etc/apt/sources.list`
+   - open the system file: `sudo nano /etc/apt/sources.list`
+   - and add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
 
-     and add the following entry: 
-   
-     `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
-
-   - add the public key of Michael Rutter to secure apt: 
- 
-     ```
-     gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-     gpg -a --export E084DAB9 | sudo apt-key add -
-     ```
+ - Add the public key of Michael Rutter to secure apt: 
+   ```
+   gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+   gpg -a --export E084DAB9 | sudo apt-key add -
+   ```
 
  - update and upgrade the system: 
 
@@ -84,7 +78,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
     sudo apt-get upgrade
     ```
     
- - install *R*: `sudo apt-get install r-base`
+ - install *R*: `sudo apt-get -y install r-base`
 
 ### Install RStudio Server
 
