@@ -14,7 +14,7 @@ Here comes [*RStudio*](http://www.rstudio.com/), as the nowadays most popular ID
 
 Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to easily share Shiny *apps* and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
 
-This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). What follows is not an introduction to R or how to write a Shiny app. 
+This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). What follows, though, is not an introduction to R or how to write a Shiny app. 
 
 ## Setting up the data-analytics framework
 
