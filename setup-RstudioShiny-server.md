@@ -14,26 +14,25 @@ Here comes [*RStudio*](http://www.rstudio.com/), as the nowadays most popular ID
 
 Finally, *RStudio Server* and *Shiny Server*, in their open source versions, allow any researcher or analyst to easily share Shiny *apps* and RMarkdown documents with their team members, colleagues and/or stakeholders in their organization, or anyone in the world with access to the Internet. 
 
-This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). 
-
+This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). What follows is not an introduction to R or how to write a Shiny app. 
 
 ## Setting up the data-analytics framework
 
 ### Create a GCE Virtual Machine
 
- - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*. You're not going to be charged, though, unless you explicitly agree to continue at the end of the trial.
- - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a **suitable name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
+ - IF you still have to join *GCE*, go to the [GCE Home page](https://cloud.google.com/compute/) and click *Try it for free*. You are now asked to enter Google Mail credential, or to create a new account. Once done, you have to fill the information about the billing method, and then click *Start your free trial*. You're not going to be charged, though, unless you explicitly agree to continue at the end of the trial, or when the $300 have all been consumed.
+ - Go to the [Project console](https://console.cloud.google.com/iam-admin/projects) and click *CREATE PROJECT* at the top. In the upcoming pop up enter a suitable **name**, then click *Show advanced options...*, and choose **europe-west**. Click *Create*. Give the system some time...
  - Go to [VM Instances console](https://console.cloud.google.com/compute/instances), select the project you want to use and wait for the page to end loading.
  - Click the *Create instance button*
 
    - Name your future VM correspondingly
    - Choose one of the **europe-west1** zone
    - Under *Machine type* choose *Customise*, and then **4 Cores + 8GB memory**. 
-   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **80GB** *size*.
+   - In the *Boot disk* section click *Change*, and then **Ubuntu 16.04 LTS** as OS, **SSD** as *disk type* with a **25GB** *size*.
    - In the Firewall section, select **Allow HTTP traffic**.
    - Finally, click the *Create* button to actually create the VM. It will take a few minutes... The process is complete when in the subsequent window a green tick appears near the name of your new machine.
  
-   The above configuration is useful to install quickly all the subsequent software, and shouldn't give any problem for most of the typical usages. After the trial, the hardware could be changed whenever pleased according to use.
+   The above configuration looks overkill, but it is useful to install quickly all the necessary software. After the trial, the hardware could be changed whenever pleased according to use.Simply stop the machine 
 
  - Now, click on the machine name's link, near the green tick, to open the configuration page. 
  - Scroll down and click the link *default* under *Network*. In the following page, we are going to add at least two rules, each requires clicking the button *Add firewall rules*:
@@ -41,7 +40,7 @@ This short doc explains the essential for setting up both *RStudio Server* and *
     - Enter the name **rstudio-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:8787**
     - Enter the name **shiny-server**, as *source filter* choose **Allow from any sources**, in the textbox marked *Allowed protocols and ports* enter **tcp:3838**
 
-- In that same page you can find the *External IP* you'll want to enter later in the browser to connect to your servers.
+- In that same page you can find the *External IP* you'll want to enter later in the browser to connect to your servers. I'll name this IP as **your_server_ip** later in this doc when referring to it.
     
 ### Working with a Virtual Machine
     
@@ -53,12 +52,12 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
 ### Install R
 
- - Create a user, home directory and set password and permissions:
+ - Create a user, home directory and set password and permissions. Substitute *username* with a name that suits you. Also, don't worry if when entering the password nothing happens, Linux doesn't bother to mask characters with asterisks, it just doesn't do anything!
    ```
-   sudo useradd analytics
-   sudo mkdir /home/analytics
-   sudo passwd analytics
-   sudo chmod -R 0777 /home/analytics
+   sudo useradd *username*
+   sudo mkdir /home/*username*
+   sudo passwd *username*
+   sudo chmod -R 0777 /home/*username*
    ```
 
  - add the CRAN repository to the system file: 
@@ -102,7 +101,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
    It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
 
- - install Rstudio Server: `sudo gdebi rstudio-server-0.99.1246-amd64.deb`
+ - install Rstudio Server: `sudo gdebi rstudio-server-1.0.9-amd64.deb`
 
 Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier, and *happy R coding!*
 
@@ -118,6 +117,8 @@ Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:
    q()
    exit
    ```
+ answering `n` 
+ 
    
  - download Shiny Server installation file: 
 
@@ -153,7 +154,7 @@ The power of the *R* system is its possibility to unlimited growth using *packag
  - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
  - PostGRESql: sudo apt-get install libpq-dev
 
-All packages should be installed as superuser **su** to ensure a unique shared library between users and the shiny user, so to avoid duplication and possible mismatches in versions:
+All packages should be installed as superuser **su** to ensure a unique shared library between users and the shiny user, so to avoid duplication and possible mismatches in versions. The following is the general way of installing a single package:
 
 ```
 sudo su
@@ -163,7 +164,7 @@ q()
 exit
 ```
 
-The single installation line could be replaced by the following snippet in case of multiple packages to install:
+while multiple packages could be installed :
 
 ```
 dep.pkg <- c(...) # list of packages
@@ -171,9 +172,13 @@ pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.
 if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
 ```
 
-For the purpose of this short demo, though, I advise you to only run the following single line of code:
+For the purpose of this short demo, though, I advise you to proceed like this:
 ```
+sudo su
+R
 lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
+q()
+exit
 ```
 
 ### Connect RStudio with Git and GitHub
