@@ -92,18 +92,18 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
 It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
 
-RStudio Server should now be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier.
+RStudio Server should now be set up. To verify this, open the browser and go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier.
 
 ### Install Shiny Server
 We need first to install at least two *R* packages: *shiny* and *rmarkdown*. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure the existence of a unique *system* library shared among the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and mismatches in versions, preventing malfunctioning.
 
 This is the way we can install a single package: 
 
-`sudo su - -c "R -e \"install.packages('pkg_name', repos='http://cran.rstudio.com/')`
+`sudo su - -c "R -e \"install.packages('pkg_name', repos='http://cran.rstudio.com/')\""`
 
-while multiple packages could be installed from inside R launched as superuser in the following way :
+while multiple packages could be installed from inside *R*, launched as superuser, in the following way :
 ```
-dep.pkg <- c(...) # list of packages
+dep.pkg <- c('pkg1_name', 'pkg2_name', ...)
 pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
 if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
 ```
