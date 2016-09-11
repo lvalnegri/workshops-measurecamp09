@@ -1,5 +1,5 @@
 ---
-title: "Setup a (not so) personal analytics server"
+title: "How to setup a (not so) personal analytics server"
 author: "Luca Valnegri (l.valnegri@datamaps.co.uk)"
 date: "10/09/2016"
 ---
