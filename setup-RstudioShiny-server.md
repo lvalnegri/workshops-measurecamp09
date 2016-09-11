@@ -46,7 +46,7 @@ This short doc explains the essential for setting up both *RStudio Server* and *
     
 The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
-For the limited purpose of this demo, we are going to use the Google SSH browser that you can open clicking the **SSH** button at the top of the instance details page.
+For the limited purpose of this demo, we are going to use the Google SSH browser that you can now open clicking the **SSH** button at the top of the instance details page. From now on, all text `marked like this` should be entered in this terminal window.
 
 ## Installing the analytics software
 
@@ -79,26 +79,34 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 ### Install RStudio Server
 
  - install auxiliary Ubuntu libraries: 
-
    ```
    sudo apt-get install gdebi-core
    sudo apt-get install libapparmor1
    ```
 
  - download Rstudio Server installation file: 
-   
-   `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
 
-   It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*
+`wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
 
  - install Rstudio Server: `sudo gdebi rstudio-server-1.0.9-amd64.deb`
 
-Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier, and *happy R coding!*
+It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
+
+RStudio Server should now be set up. To verify go to **http://your\_server\_ip:8787/** You should see the login form, enter the user and password you created earlier.
 
 ### Install Shiny Server
+We need first to install the *shiny* and *rmarkdown* packages. In general, using a setup like the one we are building, all *R* packages should be installed as *superuser*, to ensure a unique shared library between the *normal* user(s) and the *shiny* user. In this way, we avoid duplication and possible mismatches in versions, preventing malfunctioning. 
 
- - Install first the *shiny* and *rmarkdown* packages from inside R
- 
+This is how we can install a single package:
+while multiple packages could be installed in the following way :
+```
+dep.pkg <- c(...) # list of packages
+pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
+if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
+```
+
+Let's now go back to the terminal window. 
+ - Install first the *shiny* and *rmarkdown* packages:
    ```
    sudo su
    R
@@ -114,13 +122,13 @@ Now, RStudio Server should be set up. To verify go to **http://your\_server\_ip:
 
    `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
 
- It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address 
-
  - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
+
+It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
 
 At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a shiny app and a Rmarkdown document on the right of the home page.
 
-By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port **3838**. This means that any Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
+By default, the server is configured to serve applications in the **/srv/shiny-server/** directory of the system using the *shiny* user, listening to port *3838*. This means that ANY Shiny application that is placed at **/srv/shiny-server/app\_name** will be available to EVERYONE at *http://your\_server_ip:3838/app\_name/*
 
 To modify these and other default settings, the configuration file for Shiny Server is found at 
 
@@ -144,25 +152,7 @@ The power of the *R* system is its possibility to unlimited growth using *packag
  - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): sudo apt-get install libv8-dev
  - PostGRESql: sudo apt-get install libpq-dev
 
-All packages should be installed as superuser **su** to ensure a unique shared library between users and the shiny user, so to avoid duplication and possible mismatches in versions. The following is the general way of installing a single package:
-
-```
-sudo su
-R
-install.packages("pkg_name")
-q()
-exit
-```
-
-while multiple packages could be installed :
-
-```
-dep.pkg <- c(...) # list of packages
-pkgs.not.installed <- dep.pkg[!sapply(dep.pkg, function(p) require(p, character.only = TRUE))]
-if( length(pkgs.not.installed) > 0 ) install.packages(pkgs.not.installed, dependencies = TRUE)
-```
-
-For the purpose of this short demo, though, I advise you to proceed like this:
+For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository:
 ```
 sudo su
 R
@@ -187,11 +177,11 @@ To this purpose, let's first download the code and datasets that I prepared for 
  - In *Repository URL* enter the path of the repository you're currently reading *https://github.com/lvalnegri/presentations-measurecamp09* and then *Create*. 
  - Now from **File** -> **Open** choose **R-snippets.R** and run snippets by chunk.
 
-When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you just need the following two commands:
+When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you simply need to enter in the terminal window the following two commands:
 
   ```
   sudo mkdir /srv/shiny-server/<APP-NAME>
-  sudo cp -R /home/<USER>/<APP-PATH>/ /srv/shiny-server/<APP-NAME>/
+  sudo cp -R /home/<USER>/<APP-PATH>/app.r /srv/shiny-server/<APP-NAME>/
   ```
 
 __*Happy coding*__
