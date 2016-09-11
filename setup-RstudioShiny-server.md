@@ -64,6 +64,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
    - open the file for editing: `sudo nano /etc/apt/sources.list`
    - add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
+   - **CTRL+X** to save, **y** to substitute file, **Enter** to exit the nano editor
 
  - Add the public key of Michael Rutter to secure apt: 
    ```
