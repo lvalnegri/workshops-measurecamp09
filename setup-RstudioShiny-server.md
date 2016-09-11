@@ -72,12 +72,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    gpg -a --export E084DAB9 | sudo apt-key add -
    ```
 
- - update and upgrade the system: 
-
-    ```
-    sudo apt-get update
-    sudo apt-get upgrade
-    ```
+ - update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
     
  - install *R*: `sudo apt-get -y install r-base`
 
