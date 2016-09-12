@@ -212,6 +212,7 @@ where I supposed you called your user **analytics** and you wanted to call your 
  - [Video from the 2016 useR!](http://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
  - [RStudio Webinars](http://www.rstudio.com/resources/webinars/)
  - [Stack Overflow](http://stackoverflow.com/tags/r/info)
+ - If you enjoy data visualizations, the [htmlwidgets](http://www.htmlwidgets.org/showcase_leaflet.html) package, and [its widgets](http://gallery.htmlwidgets.org/), are a must be known. Also, have a look at the [Building Widgets blog] (http://www.buildingwidgets.com/blog) for some more ideas.
 
  - [Add Google Analytics to a Shiny app](http://shiny.rstudio.com/articles/google-analytics.html)
  - Have a read at [Mark Edmonson](http://markedmondson.me/) blog
