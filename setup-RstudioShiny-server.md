@@ -71,7 +71,8 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
    gpg -a --export E084DAB9 | sudo apt-key add -
    ```
-   You should have a simple **OK** feedback at the end. If not, the issue is probably related to a firewall blocking port 11371, and should substitute the first line with the following:
+   You should receive back a simple **OK** message at the end. If not, the issue is probably related to a firewall blocking port 11371, and should substitute the first line with the following:
+   
    ```gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9```
 
 
