@@ -224,4 +224,4 @@ where I supposed you called your user **analytics** and you wanted to call your 
  - EU Referendum results thanks to [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
 
 
-PLease, feel free to connect to my profile on [LinkedIn](https://uk.linkedin.com/in/lucavalnegri) or to follow me on [Twitter](http://twitter.com/datamaps)
+Please, feel free to connect to my profile on [LinkedIn](https://uk.linkedin.com/in/lucavalnegri) or to follow me on [Twitter](http://twitter.com/datamaps)
