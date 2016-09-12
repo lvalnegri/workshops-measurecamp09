@@ -153,7 +153,7 @@ Other steps that should be surely taken are:
 
 ### Install Additional Packages
 
-The power of the *R* system is its possibility to unlimited growth using *packages*. On a Linux machine, some of them require additional software to be installed beforehand. The following is a list of the dependencies needed for the most used packages:
+The power of the *R* system is its possibility to unlimited growth using contributed *packages*. On a Linux machine, some of them require additional software and/or libraries to be installed beforehand. The following is a list of the dependencies needed for the most used packages:
  - devtools: `sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev`
  - XML: `sudo apt-get install libxml2-dev`
  - rJava: `sudo apt-get install openjdk-7-* && sudo R CMD javareconf`
@@ -163,10 +163,9 @@ The power of the *R* system is its possibility to unlimited growth using *packag
  - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): `sudo apt-get install libv8-dev`
  - PostGRESql: `sudo apt-get install libpq-dev`
 
-
- 
-For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository: 
+For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository. The first line, installing Linux libraries, is needed because of the *devtools* package being included in the list (*devtools* is a 
 ```
+sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
 sudo su
 R
 lapply(c('devtools', 'data.table', 'DT', 'ggplot2', 'jsonlite', 'leaflet', 'shinythemes'), install.packages)
@@ -185,9 +184,8 @@ exit
 ## Try the system
 
 To this purpose, let's first download the code that I prepared for you!
-
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
- - In *Repository URL* enter the path of the repository you're currently reading: *https://github.com/lvalnegri/presentations-measurecamp09*, the other two fields should get filled automatically. Click *Create*. 
+ - In *Repository URL* enter the path of the file you're currently reading: *https://github.com/lvalnegri/presentations-measurecamp09*, the other two fields should get filled automatically. Click *Create*. 
  - Now from **File** -> **Open File** choose **R-snippets.R** and run snippets by chunk.
 
 When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you simply need to enter in the terminal window the following two commands:
@@ -195,8 +193,14 @@ When you've finished to develop a Shiny app, and want to move it to the server l
   sudo mkdir /srv/shiny-server/<APP-NAME>
   sudo cp -R /home/<USER>/<APP-PATH>/app.r /srv/shiny-server/<APP-NAME>/
   ```
+where I supposed you want to copy a [single file](http://shiny.rstudio.com/articles/app-formats.html) Shiny app. 
 
-__*Happy coding*__
+There is a simple example app in my repository, that should be also in your Ubuntu server right now if you've followed my previous commands. We can copy it to the Shiny server directory:
+```
+  sudo mkdir /srv/shiny-server/mcdemo
+  sudo cp -R /home/analytics/presentations-measurecamp09/app.R /srv/shiny-server/mcdemo/
+```
+where I supposed you called your user **analytics** and you wanted to call your app **mcdemo**. Open the browser and go to **http://your_server_ip:3838/mcdemo** to see your new Shiny server running the app: a table and a map of all Cycle hire stations in London, with the corresponding number of docks and total hires and average duration of journey since January 2012.
 
 
 ## Where to go next?
