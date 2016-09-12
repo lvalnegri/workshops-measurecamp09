@@ -200,7 +200,7 @@ There is a simple example app in my repository, that should be also in your Ubun
   sudo mkdir /srv/shiny-server/mcdemo
   sudo cp -R /home/analytics/presentations-measurecamp09/app.R /srv/shiny-server/mcdemo/
 ```
-where I supposed you called your user **analytics** and you wanted to call your app **mcdemo**. Open the browser and go to **http://your_server_ip:3838/mcdemo** to see your new Shiny server running the app: a table and a map of all Cycle hire stations in London, with the corresponding number of docks and total hires and average duration of journey since January 2012.
+where I supposed you called your user **analytics** and you wanted to call your app **mcdemo**. Open now the browser and go to **http://your_server_ip:3838/mcdemo** to see your new Shiny server running the app: a table and a map of all Cycle hire stations in London, with the corresponding number of docks and total hires and average duration of journey since January 2012.
 
 
 ## Where to go next?
@@ -224,3 +224,4 @@ where I supposed you called your user **analytics** and you wanted to call your 
  - EU Referendum results thanks to [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
 
 
+PLease, feel free to connect to my profile on [LinkedIn](https://uk.linkedin.com/in/lucavalnegri) or to follow me on [Twitter](http://twitter.com/datamaps)
