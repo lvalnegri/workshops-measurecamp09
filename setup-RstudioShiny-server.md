@@ -62,8 +62,8 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
  - Add the CRAN repository to the system file containing the list of *unofficial* Ubuntu repositories: 
 
-   - open the file for editing: `sudo nano /etc/apt/sources.list`
-   - add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
+   - open the file for editing: ` sudo nano /etc/apt/sources.list `
+   - add the following entry: ` deb http://cran.rstudio.com/bin/linux/ubuntu xenial/ `
    - **CTRL+X** to save, **y** to substitute file, **Enter** to exit the nano editor
 
  - Add the public key of maintaner *Michael Rutter* (or any other one) to secure the Ubuntu *apt* packaging system: 
@@ -77,9 +77,9 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
    ```
 
- - Update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
+ - Update and upgrade the system: ` sudo apt-get update && sudo apt-get upgrade `
     
- - install *R*: `sudo apt-get install r-base`
+ - install *R*: ` sudo apt-get install r-base `
 
 ### Install RStudio Server
 
@@ -90,10 +90,11 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    ```
 
  - download Rstudio Server installation file: 
+   ```
+   wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb
+   ```
 
-   `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
-
- - install Rstudio Server: `sudo gdebi rstudio-server-1.0.9-amd64.deb`
+ - install Rstudio Server: ` sudo gdebi rstudio-server-1.0.9-amd64.deb `
 
 It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
 
