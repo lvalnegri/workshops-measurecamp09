@@ -77,13 +77,13 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
    ```
 
- - update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
+ - Update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
     
  - install *R*: `sudo apt-get install r-base`
 
 ### Install RStudio Server
 
- - install auxiliary Ubuntu libraries: 
+ - Install auxiliary Ubuntu libraries: 
    ```
    sudo apt-get install gdebi-core
    sudo apt-get install libapparmor1
@@ -91,7 +91,7 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
 
  - download Rstudio Server installation file: 
 
-`wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
+   `wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb`
 
  - install Rstudio Server: `sudo gdebi rstudio-server-1.0.9-amd64.deb`
 
