@@ -16,6 +16,7 @@ Finally, *RStudio Server* and *Shiny Server*, in their open source versions, all
 
 This short doc explains the essential for setting up both *RStudio Server* and *Shiny Server* on an *Ubuntu* Machine in the Cloud using the *Google Compute Engine*, part of their quite complete **IaaS** offer called *Google Cloud Platform*. The current free trial consists in $300 to use on a period of 2 months, that allows anyone to learn how to build and use a powerful analytics machine in minutes without breaking the bank (actually, without even spending 1p). What follows, though, is not an introduction to R or how to write a Shiny app. 
 
+
 ## Setting up the data-analytics framework
 
 ### Create a GCE Virtual Machine
@@ -48,6 +49,7 @@ The way these machines usually work is by *SSHing*, or using a terminal window, 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
 For the limited purpose of this demo, we are going to use the Google SSH browser window that you can now open clicking the **SSH** button at the top of the VM instance details page. From now on, all text `marked like this` should be entered in this terminal window.
 
+
 ## Installing the analytics software
 
 ### Install R
@@ -72,14 +74,19 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    gpg -a --export E084DAB9 | sudo apt-key add -
    ```
    You should receive back a simple **OK** message at the end. If not, the issue is probably related to a firewall blocking port 11371, and should substitute the first line with the following:
-   
    ```
    gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
    ```
 
- - Update and upgrade the system: ` sudo apt-get update && sudo apt-get upgrade `
+ - Update and upgrade the system:
+   ```
+   sudo apt-get update && sudo apt-get upgrade
+   ```
     
- - install *R*: ` sudo apt-get install r-base `
+ - install *R*:
+   ```
+   sudo apt-get install r-base
+   ```
 
 ### Install RStudio Server
 
@@ -94,7 +101,10 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    wget https://s3.amazonaws.com/rstudio-dailybuilds/rstudio-server-1.0.9-amd64.deb
    ```
 
- - install Rstudio Server: ` sudo gdebi rstudio-server-1.0.9-amd64.deb `
+ - install Rstudio Server:
+   ```
+   sudo gdebi rstudio-server-1.0.9-amd64.deb
+   ```
 
 It could be useful to visit [this page](http://www.rstudio.com/products/rstudio/download/preview/) to see if any newer version is available, and in that case copy the address for the link *RStudio Server x.yy.zzzz - Ubuntu 12.04+/Debian 8+ (64-bit)*, and change the previous commands accordingly.
 
@@ -125,7 +135,10 @@ Let's now go back to the terminal window.
 
    `wget https://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.4.4.801-amd64.deb`
 
- - install Shiny Server: `sudo gdebi shiny-server-1.4.4.801-amd64.deb`
+ - install Shiny Server: 
+   ```
+   sudo gdebi shiny-server-1.4.4.801-amd64.deb
+   ```
 
 It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottom of the page, and change the previous commands accordingly.
 
@@ -178,7 +191,6 @@ To this purpose, let's first download the code that I prepared for you!
  - Now from **File** -> **Open File** choose **R-snippets.R** and run snippets by chunk.
 
 When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you simply need to enter in the terminal window the following two commands:
-
   ```
   sudo mkdir /srv/shiny-server/<APP-NAME>
   sudo cp -R /home/<USER>/<APP-PATH>/app.r /srv/shiny-server/<APP-NAME>/
@@ -189,6 +201,9 @@ __*Happy coding*__
 
 ## Where to go next?
 
+ - [Shiny documentation](http://shiny.rstudio.com/articles/)
+ - [Shiny tagged entries](https://www.r-bloggers.com/search/shiny) at *R-bloggers* aggregation site
+ - [Shiny Google group](https://groups.google.com/forum/#!forum/shiny-discuss)
  - [RStudio Talks](http://www.rstudio.com/resources/webinars/shiny-developer-conference/) from the Shiny Developer Conference
  - [Video from the 2016 useR!](http://channel9.msdn.com/Events/useR-international-R-User-conference/useR2016) International R User conference
  - [RStudio Webinars](http://www.rstudio.com/resources/webinars/)
@@ -200,7 +215,8 @@ __*Happy coding*__
 
 ## Credits
 
- - [Santander Cycles data](http://cycling.data.tfl.gov.uk) supplied by Transport for London
+ - Santander London Cycles Hire [API](http://api.tfl.gov.uk/bikepoint) and [data](http://cycling.data.tfl.gov.uk) supplied by Transport for London
  - UK Geography lookups provided by [ONS](http://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography)
- - [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
+ - EU Referendum results thanks to [Electoral Commission](http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information)
+
 
