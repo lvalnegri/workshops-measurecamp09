@@ -163,7 +163,7 @@ The power of the *R* system is its possibility to unlimited growth using contrib
  - geojsonio (must be installed AFTER previous deps for rgdal & rgeos): `sudo apt-get install libv8-dev`
  - PostGRESql: `sudo apt-get install libpq-dev`
 
-For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository. The first line, installing Linux libraries, is needed because of the *devtools* package being included in the list ([*devtools*](http://cran.r-project.org/web/packages/devtools/index.html) is a package development tool, written by RStudio guru [Hadley Wickham](http://twitter.com/hadleywickham), also needed to install packages not deployed by the official CRAN repository, but stored only on GitHub)
+For the purpose of this short demo, we can install only the following packages, which are needed to run the snippets and the app included in this repository. The first line, installing Linux libraries, is needed because of the *devtools* package being included in the list ([*devtools*](http://cran.r-project.org/web/packages/devtools/index.html) is a package development tool, written by RStudio guru [Hadley Wickham](http://twitter.com/hadleywickham), also needed to install packages not deployed by the [official CRAN repository](https://cran.r-project.org/web/views/), but stored only on the Git repository hosting service [GitHub](https://github.com/))
 ```
 sudo apt-get install curl && sudo apt-get install libcurl4-gnutls-dev && sudo apt-get install libssl-dev
 sudo su
