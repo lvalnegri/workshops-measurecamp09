@@ -46,7 +46,7 @@ This short doc explains the essential for setting up both *RStudio Server* and *
     
 The way these machines usually work is by *SSHing*, or using a terminal window, to send commands, or *SFTPing* to transfer files. 
 In both cases, it's possible to use either a browser window, or an application related to the specific OS and hardware at hand. 
-For the limited purpose of this demo, we are going to use the Google SSH browser that you can now open clicking the **SSH** button at the top of the instance details page. From now on, all text `marked like this` should be entered in this terminal window.
+For the limited purpose of this demo, we are going to use the Google SSH browser window that you can now open clicking the **SSH** button at the top of the VM instance details page. From now on, all text `marked like this` should be entered in this terminal window.
 
 ## Installing the analytics software
 
@@ -66,11 +66,14 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    - add the following entry: `deb http://cran.rstudio.com/bin/linux/ubuntu xenial/`
    - **CTRL+X** to save, **y** to substitute file, **Enter** to exit the nano editor
 
- - Add the public key of Michael Rutter to secure apt: 
+ - Add the public key of maintaner *Michael Rutter* (or any other one) to secure the Ubuntu *apt* packaging system: 
    ```
    gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
    gpg -a --export E084DAB9 | sudo apt-key add -
    ```
+   You should have a simple **OK** feedback at the end. If not, the issue is probably related to a firewall blocking port 11371, and should substitute the first line with the following:
+   ```gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9```
+
 
  - update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
     
