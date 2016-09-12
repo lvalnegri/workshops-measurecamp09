@@ -34,14 +34,14 @@ results <- merge(results, geo_locations[type == 'RGN', .(id, name)], by.x = 'RGN
 results[, name := as.factor(name)]
 setnames(results, 'name', 'region')
 
-g <- ggplot(data = results, aes(x = pctLeave, y = turnout, fill = pctLeave))
-g <- g + geom_vline(xintercept = 50, color = 'red', size = 0.25)
-g <- g + geom_point(colour = 'black', pch = 23, size = 3)
-g <- g + scale_fill_gradient(low = "yellow", high = "blue")
-g <- g + theme_classic() 
-g <- g + theme(axis.text.x = element_blank(), axis.title.x=element_blank(), axis.ticks=element_blank(), legend.position = 'none')
-g <- g + labs(title = 'EU Referendum Results', x = '')
-g <- g + facet_wrap(~region)
-g <- g + geom_hline(data = results[, .(median(turnout)), region], aes(group = region, yintercept = V1), color = 'gray', linetype="dotted") 
-g
+ggplot(data = results, aes(x = pctLeave, y = turnout, fill = pctLeave)) + 
+  geom_vline(xintercept = 50, color = 'red', size = 0.25) + 
+  geom_point(colour = 'black', pch = 23, size = 3) + 
+  scale_fill_gradient(low = "yellow", high = "blue") +
+  theme_classic() + 
+  theme(axis.text.x = element_blank(), axis.title.x=element_blank(), axis.ticks=element_blank(), legend.position = 'none') + 
+  labs(title = 'EU Referendum Results', x = '') + 
+  facet_wrap(~region) + 
+  geom_hline(data = results[, .(median(turnout)), region], aes(group = region, yintercept = V1), color = 'gray', linetype="dotted") 
+
 
