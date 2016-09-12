@@ -73,8 +73,9 @@ For the limited purpose of this demo, we are going to use the Google SSH browser
    ```
    You should receive back a simple **OK** message at the end. If not, the issue is probably related to a firewall blocking port 11371, and should substitute the first line with the following:
    
-   ```gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9```
-
+   ```
+   gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E084DAB9
+   ```
 
  - update and upgrade the system: `sudo apt-get update && sudo apt-get upgrade`
     
