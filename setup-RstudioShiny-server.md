@@ -185,8 +185,8 @@ exit
 
 To this purpose, let's first download the code that I prepared for you!
  - From the top right menu *Project: (None)* select **New project** -> **Version control** -> **Git**. 
- - In *Repository URL* enter the path of the file you're currently reading: *https://github.com/lvalnegri/presentations-measurecamp09*, the other two fields should get filled automatically. Click *Create*. 
- - Now from **File** -> **Open File** choose **R-snippets.R** and run snippets by chunk.
+ - In *Repository URL* enter the path of the file you're currently reading: *https://github.com/lvalnegri/presentations-measurecamp09*, the other two fields should get filled automatically. Click *Create Project*. 
+ - Now from **File** -> **Open File** choose **R-snippets.R** and run snippets by chunk to see first a map of all Cycle Hire Stations in London, and then some scatterplots by UK regions from last June's EU referendum results.
 
 When you've finished to develop a Shiny app, and want to move it to the server location to deploy it, you simply need to enter in the terminal window the following two commands:
   ```
