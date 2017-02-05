@@ -140,7 +140,7 @@ Let's now go back to the terminal window.
    sudo gdebi shiny-server-1.4.4.801-amd64.deb
    ```
 
-It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottom of the page, and change the previous commands accordingly.
+It could be useful to visit [this page](https://www.rstudio.com/products/shiny/download-server/) to see if any newer version is available, and in that case copy the address you find towards the bottom of the page, and change the previous commands accordingly. If you want to find the version of the currently installed version just run `apt-cache showpkg shiny-server` in the terminal.
 
 At this point your newly built Ubuntu machine should have a complete working Shiny Server, that can host both Shiny applications and RMarkdown interactive documents. Try to go to **http://your_server_ip:3838/** and you should be greeted by a fairly basic demo Shiny app and a Rmarkdown document.
 
